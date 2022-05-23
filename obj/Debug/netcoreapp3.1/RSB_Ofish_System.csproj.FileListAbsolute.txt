@@ -362,6 +362,7 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Of
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Ofish\Edit.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Ofish\Index.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_cardView.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutOld.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ofishDataView.cshtml.g.cs
@@ -383,4 +384,4 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\staticwebasset
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.pdb
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.genruntimeconfig.cache
-D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_cardView.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.csprojAssemblyReference.cache

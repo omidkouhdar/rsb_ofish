@@ -94,6 +94,7 @@
                 var headers = { __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() };
                 var dataForm = $('#form').serializeArray();
                 dataForm.push({ name: "img", value: img });
+                
                 dataForm.push({ name: "headers", value: headers });
                 $.ajax({
                     url: url,

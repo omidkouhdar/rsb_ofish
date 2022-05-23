@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ASPNET Core\\RSB_Ofish_System\\RSB_Ofish_System\\RSB_Ofish_System.csproj": {}
+    "D:\\ASPNET Core\\RSB_Ofish_System\\rsb_ofish\\RSB_Ofish_System.csproj": {}
   },
   "projects": {
-    "D:\\ASPNET Core\\RSB_Ofish_System\\RSB_Ofish_System\\RSB_Ofish_System.csproj": {
+    "D:\\ASPNET Core\\RSB_Ofish_System\\rsb_ofish\\RSB_Ofish_System.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ASPNET Core\\RSB_Ofish_System\\RSB_Ofish_System\\RSB_Ofish_System.csproj",
+        "projectUniqueName": "D:\\ASPNET Core\\RSB_Ofish_System\\rsb_ofish\\RSB_Ofish_System.csproj",
         "projectName": "RSB_Ofish_System",
-        "projectPath": "D:\\ASPNET Core\\RSB_Ofish_System\\RSB_Ofish_System\\RSB_Ofish_System.csproj",
+        "projectPath": "D:\\ASPNET Core\\RSB_Ofish_System\\rsb_ofish\\RSB_Ofish_System.csproj",
         "packagesPath": "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\",
-        "outputPath": "D:\\ASPNET Core\\RSB_Ofish_System\\RSB_Ofish_System\\obj\\publish\\win-x64\\",
+        "outputPath": "D:\\ASPNET Core\\RSB_Ofish_System\\rsb_ofish\\obj\\publish\\win-x64\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kouhdar.RSB\\AppData\\Roaming\\NuGet\\NuGet.Config",
