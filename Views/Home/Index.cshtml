@@ -33,5 +33,25 @@
         getData(1);
     });
 </script>
+<script >
+    function showCard(id) {
+        
+        $.ajax({
+            url: '/Ofish/showCard/',
+            data: { Id: id },
+            type: 'get',
+            success: function (result) {
+               //$('#myModalLabel').html('تصویر کارت ملی');
+                $('#myModalBody').html(result);
+                $('#myModal').modal("show");
+            },
+            error: function (err) {
+
+            }
+
+
+        });
+    }
+</script>
 
 }

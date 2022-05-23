@@ -81,7 +81,27 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
             this._dataBase.Dispose();
         }
 
-       
+        public async Task<ResultInfo> getCard(long Id)
+        {
+            var ofish = await _dataBase.Ofish.FindAsync(Id);
+            if(ofish != null)
+            {
+                return new ResultInfo
+                {
+                    IsSuccess = true,
+                    Message = ofish.PicPath,
+                    Title = $"تصویر کارت ملی آقا / خانم {ofish.FullName}" 
+                };
+            }
+            else
+            {
+                return new ResultInfo
+                {
+                    IsSuccess = false
+                };
+            }
+            
+        }
 
         public async Task<ListResultVM<OfishListVM>> GetTodayOfishLists(int pageId = 1)
         {
