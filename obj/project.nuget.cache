@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2Kr3efvm9yfDBp3RtthQ61PAxldac8kcHLKxGgkFgbyenSANa94bWrDNW2ceNP3ALuR6QQ2Gm8bBXNvawwnSWA==",
+  "dgSpecHash": "zAqBzlzcwjmkstT6O2Q0SO7WHSOk280yZLa9muXWBFWl1gzo4QDVuxFv6z4fsvcmiUSfyfmXKaj0ykl0GmIeMw==",
   "success": true,
-  "projectFilePath": "D:\\ASPNET Core\\RSB_Ofish_System\\RSB_Ofish_System\\RSB_Ofish_System.csproj",
+  "projectFilePath": "D:\\ASPNET Core\\RSB_Ofish_System\\rsb_ofish\\RSB_Ofish_System.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

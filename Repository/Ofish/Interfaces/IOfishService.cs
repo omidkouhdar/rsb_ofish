@@ -10,5 +10,6 @@ namespace RSB_Ofish_System.Repository.Ofish.Interfaces
         Task<ListResultVM<OfishListVM>> GetTodayOfishLists(int pageId = 1);
         
         Task<ResultInfo> addOfish(OfishVM ofish , string img);
+        Task<ResultInfo> getCard(long Id);
     }
 }

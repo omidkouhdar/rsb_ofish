@@ -27,7 +27,11 @@ namespace RSB_Ofish_System.Controllers
             _ofishService = ofishService;
           
         }
-
+        public async Task<IActionResult> showCard(int Id)
+        {
+            var result = await _ofishService.getCard(Id);
+            return PartialView("_cardView", result);
+        }
         // GET: OfishVMs
         public async Task<IActionResult> Index()
         {
