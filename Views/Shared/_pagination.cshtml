@@ -1,0 +1,27 @@
+﻿
+    <div class="row">
+        <div class="col-md-3">
+            <h4 style="font-family:'zar'">
+                تعداد کل تردد ها : @Model.TotalRows
+            </h4>
+
+        </div>
+    </div>
+    <ul class="pagination">
+        @{
+            int CurrentPage = (int)ViewData["currenPage"];
+        }
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            if (CurrentPage == i)
+            {
+                <li class="active"><a href="#">@i</a></li>
+            }
+            else
+            {
+                <li><a href="#" onclick="getData('@i')">@i</a></li>
+            }
+        }
+
+    </ul>
+

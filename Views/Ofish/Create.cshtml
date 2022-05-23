@@ -1,0 +1,135 @@
+﻿@model RSB_Ofish_System.Models.ViewModels.OfishVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<br />
+<a asp-action="Index" asp-controller="Home" class="btn btn-warning">
+    <span>
+        بازگشت
+    </span>
+    <i class="glyphicon glyphicon-step-backward"></i>
+</a>
+<div class="row">
+    <div class="col-md-6">
+        <form id="form" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NationalCode" class="control-label"></label>
+                <input asp-for="NationalCode" class="form-control " />
+                <span asp-validation-for="NationalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control " />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OfficeId" class="control-label"></label>
+                <select asp-for="OfficeId" asp-items="@(new SelectList(ViewBag.office , "Id" , "Name"))" class="form-control "></select>
+                <span asp-validation-for="OfficeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff" class="control-label"></label>
+                <input asp-for="Staff" class="form-control " />
+                <span asp-validation-for="Staff" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" rows="5" class="form-control "></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                    <span>ثبـت</span><i class="glyphicon glyphicon-send"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <div id="my_camera" style=" margin-top:120px;margin-bottom:auto"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/webcamjs/webcam.min.js"></script>
+    <script src="~/lib/Sweetalert2/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="~/lib/Sweetalert2/sweetalert2.min.css" />
+    <script type="text/javascript">
+        Webcam.set({
+            width: 320,
+            height: 240,
+            image_format: 'jpeg',
+            jpeg_quality: 90,
+            constraint: {
+                width: 320,
+                height: 240
+            }
+        });
+        Webcam.attach('#my_camera');
+
+
+        function postData() {
+            Webcam.snap(function (data_uri) {
+
+                var img = data_uri;
+                var url = $('#form').attr('action');
+                var headers = { __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() };
+                var dataForm = $('#form').serializeArray();
+                dataForm.push({ name: "img", value: img });
+                dataForm.push({ name: "headers", value: headers });
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: dataForm,
+                    success: function (result) {
+
+                        if (result.isSuccess == true) {
+                            swal.fire(
+                                result.title,
+                                result.message,
+                                result.status
+                            ).then(function (isConfirm) {
+                                window.location.replace("/")
+                            });
+                        } else if (result.isSuccess == false) {
+                            swal.fire(result.title,
+                                result.message,
+                                result.status);
+                        }
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            });
+        }
+    </script>
+    <script>
+        $(function () {
+            $('#form').on('submit', function (e) {
+                e.preventDefault();
+                postData();
+            });
+
+        });
+    </script>
+
+}

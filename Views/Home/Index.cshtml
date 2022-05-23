@@ -1,0 +1,37 @@
+﻿
+
+    <div  id="dataList">
+        
+    </div>
+
+
+
+
+@section Scripts{ 
+     
+    <script>       
+
+        function getData(pageid) {
+            var url = '/home/getTodayData';
+            data = { pageId: pageid };
+            $.ajax({
+                url: url,
+                data: data,
+                type: 'get',
+                success: function (result) {
+                    $('#dataList').html(result);
+                },
+                error: function (err) {
+
+                }
+
+            });
+        }
+    </script>
+<script>
+    $(function () {
+        getData(1);
+    });
+</script>
+
+}

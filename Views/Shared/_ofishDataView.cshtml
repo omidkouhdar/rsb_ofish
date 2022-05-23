@@ -1,0 +1,67 @@
+﻿@model RSB_Ofish_System.Models.ViewModels.ListResultVM<RSB_Ofish_System.Models.ViewModels.OfishListVM>
+@{
+    int counter = 1;
+}
+<h2>@Model.ListTitle<i class="icon-calendar"></i> <span style="font-family:zar;">@CommonTools.Tools.ToshamsiDate(DateTime.Now)</span></h2>
+
+<p>
+    <a class="btn btn-success" asp-controller="Ofish" asp-action="Create">ثبت مورد جدید <i class="icon-plus"></i></a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                کد ملی
+            </th>
+            <th>
+                نام و نام خانوادگی
+            </th>
+            <th>
+                اداره / واحد
+            </th>
+            <th>
+                ملاقات شونده
+            </th>
+            <th>
+                تاریخ ملاقات
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="dataList">
+        @foreach (var item in Model.DataList)
+        {
+            <tr>
+                <td>
+                    @counter
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NationCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Office)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Staff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfishDate)
+                </td>
+
+                <td>
+                </td>
+            </tr>
+            counter += 1;
+        }
+    </tbody>
+</table>
+<partial name="_pagination" />
