@@ -44,7 +44,7 @@ namespace RSB_Ofish_System.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ExitTime")
+                    b.Property<DateTime?>("ExitTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FullName")
@@ -61,6 +61,9 @@ namespace RSB_Ofish_System.Migrations
 
                     b.Property<DateTime>("OffishTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("OnExitRegister")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PicPath")
                         .HasColumnType("nvarchar(max)");
