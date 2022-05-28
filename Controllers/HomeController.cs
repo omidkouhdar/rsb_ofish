@@ -12,11 +12,11 @@ using RSB_Ofish_System.Repository.Ofish.Interfaces;
 namespace RSB_Ofish_System.Controllers
 {
     [Authorize(Roles ="Guard")]
-    public class HomeController : Controller
+    public class Home : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<Home> _logger;
         private readonly IOfishService _ofishService;
-        public HomeController(ILogger<HomeController> logger , IOfishService ofishService)
+        public Home(ILogger<Home> logger , IOfishService ofishService)
         {
             _logger = logger;
             _ofishService = ofishService;

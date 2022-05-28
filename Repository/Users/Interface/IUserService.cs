@@ -9,6 +9,7 @@ namespace RSB_Ofish_System.Repository.Users.Interface
     {
         Task<ResultInfo> registerUser(RegisterVM model);
         Task<ResultInfo> login(LoginVM model);
+        Task<ResultInfo> resetPassword(ResetPassword model , string id);
         Task SignOut();
     }
 }

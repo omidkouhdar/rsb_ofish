@@ -71,19 +71,27 @@
                                 <span>ورود به سیستم</span>
                             </a>
                         </li>
+
                     }
                     else
                     {
                         <hr/>
-                        <li> 
-                            @{ 
+                        <li>
+                            <a class="" href="@Url.Action("resetPassword" , "Auth")">
+                                <i class="icon-exchange"></i>
+                                <span>تعویض رمز عبور</span>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            @{
                                 string img = @CommonTools.Tools.GetUserId(User) + ".jpg";
                             }
                             <img src='~/Them/img/@img' class="img-circle" />
                             <h3 class="text-center" style="color:aliceblue">
-                               <span>نگهبان</span> @User.FindFirst("FullName").Value
+                                <span>نگهبان</span> @User.FindFirst("FullName").Value
                             </h3>
-                                
+
                         </li>
                         <li>
                             <form id="signoutform" asp-action="SignOut" asp-controller="Auth" role="form" method="post">

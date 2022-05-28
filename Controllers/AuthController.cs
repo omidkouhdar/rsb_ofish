@@ -78,6 +78,27 @@ namespace RSB_Ofish_System.Controllers
             return Json(result);
 
         }
-
+        [Authorize]
+        public IActionResult resetPassword()
+        {
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> resetPassword(ResetPassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = CommonTools.Tools.GetUserId(User);
+                var result = await _userService.resetPassword(model, id);
+                if (result.IsSuccess)
+                {
+                    return RedirectToAction(nameof(Index), nameof(Home));
+                }
+                ModelState.AddModelError(string.Empty, result.Message);
+                return View(model);
+            }
+            return View(model);
+        }
     }
 }

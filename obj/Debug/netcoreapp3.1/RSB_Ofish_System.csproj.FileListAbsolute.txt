@@ -385,3 +385,4 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_Syst
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.pdb
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.genruntimeconfig.cache
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.csprojAssemblyReference.cache
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Auth\resetPassword.cshtml.g.cs

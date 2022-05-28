@@ -15,13 +15,13 @@ namespace RSB_Ofish_System.Repository.Users.Service
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        
-        public UserService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager , RoleManager<IdentityRole> roleManager)
+
+        public UserService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            
+
         }
 
         public void Dispose()
@@ -56,7 +56,7 @@ namespace RSB_Ofish_System.Repository.Users.Service
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new ResultInfo
                 {
@@ -66,9 +66,9 @@ namespace RSB_Ofish_System.Repository.Users.Service
                     Title = "نا موفق"
                 };
             }
-            
+
         }
-        
+
         public async Task<ResultInfo> registerUser(RegisterVM model)
         {
             IdentityUser user = new IdentityUser()
@@ -80,17 +80,17 @@ namespace RSB_Ofish_System.Repository.Users.Service
             var result = await _userManager.CreateAsync(user, model.PassWord);
             if (result.Succeeded)
             {
-               
+
                 await _userManager.AddClaimAsync(user, new Claim("fullname", model.FullName));
 
-                var roleResult = await   CreateRoleForUsers("Guard", user);
+                var roleResult = await CreateRoleForUsers("Guard", user);
 
                 return new ResultInfo
                 {
-                     
+
                     IsSuccess = true,
-                    Message = "ثبت اطلاعات کاربر انجام شد" ,
-                    Status = nameof( Models.ViewModels.OprationStatus.success),
+                    Message = "ثبت اطلاعات کاربر انجام شد",
+                    Status = nameof(Models.ViewModels.OprationStatus.success),
                     Title = "موفق"
                 };
             }
@@ -107,21 +107,59 @@ namespace RSB_Ofish_System.Repository.Users.Service
             }
         }
 
+        public async Task<ResultInfo> resetPassword(ResetPassword model, string id)
+        {
+
+            var user = await _userManager.FindByIdAsync(id);
+            var isPassTrue = await _signInManager.CheckPasswordSignInAsync(user, model.OldPassword, false);
+            if(!isPassTrue.Succeeded)
+
+            {
+                return new ResultInfo
+                {
+                    IsSuccess = false,
+                    Message = "رمز عبور فعلی نادرست میباشد",
+                    Status = nameof(Models.ViewModels.OprationStatus.error),
+                    Title = "نا موفق"
+                };
+            }
+            var tokenResetPassword = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, tokenResetPassword, model.Password);
+            if (result.Succeeded)
+                return new ResultInfo
+                {
+
+                    IsSuccess = true,
+                    Message = "تغییر رمز  با موفقیت انجام شد",
+                    Status = nameof(Models.ViewModels.OprationStatus.success),
+                    Title = "موفق"
+
+                };
+            return new ResultInfo
+            {
+                IsSuccess = false,
+                Message = "عدم تغییر رمز عبور",
+                Status = nameof(Models.ViewModels.OprationStatus.error),
+                Title = "نا موفق"
+            };
+
+        }
+
         public async Task SignOut()
         {
             await _signInManager.SignOutAsync();
         }
 
 
-        private async Task<bool> CreateRoleForUsers(string rolName  ,  IdentityUser user)
+        private async Task<bool> CreateRoleForUsers(string rolName, IdentityUser user)
         {
             try
             {
                 bool isExistThisRole = await _roleManager.RoleExistsAsync(rolName);
                 if (!isExistThisRole)
                 {
-                    await _roleManager.CreateAsync(new IdentityRole { Name = rolName});
-                }                
+                    await _roleManager.CreateAsync(new IdentityRole { Name = rolName });
+                }
                 await _userManager.AddToRoleAsync(user, rolName);
                 return true;
             }
@@ -129,7 +167,7 @@ namespace RSB_Ofish_System.Repository.Users.Service
             {
                 return false;
             }
-            
+
         }
     }
 }
