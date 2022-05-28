@@ -32,6 +32,12 @@ namespace RSB_Ofish_System.Controllers
             var result = await _ofishService.getCard(Id);
             return PartialView("_cardView", result);
         }
+        public async Task<IActionResult> Exit(long Id)
+        {
+            var userId = CommonTools.Tools.GetUserId(User);
+            var result = await _ofishService.Exit(Id, userId);
+            return Json(result);
+        }
         // GET: OfishVMs
         public async Task<IActionResult> Index()
         {
@@ -39,23 +45,7 @@ namespace RSB_Ofish_System.Controllers
             return View(model);
         }
 
-        // GET: OfishVMs/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ofishVM = await _context.Ofish
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ofishVM == null)
-            {
-                return NotFound();
-            }
-
-            return View(ofishVM);
-        }
+  
 
         // GET: OfishVMs/Create
         public IActionResult Create()

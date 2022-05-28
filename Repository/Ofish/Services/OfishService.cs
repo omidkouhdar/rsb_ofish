@@ -42,7 +42,8 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                     OffishTime = DateTime.Now,
                     PicPath = picPath,
                     Staff = ofish.Staff , 
-                    UserId = ofish.UserId
+                    UserId = ofish.UserId , 
+                    
                 });
                 try
                 {
@@ -79,6 +80,45 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
         public void Dispose()
         {
             this._dataBase.Dispose();
+        }
+
+        public async Task<ResultInfo> Exit(long Id, string UserId)
+        {
+            var ofish =  _dataBase.Ofish.Find(Id);
+            if(ofish != null)
+            {
+                ofish.ExitTime = DateTime.Now;
+                ofish.OnExitRegister = UserId;
+                try
+                {
+                    await _dataBase.SaveChangesAsync();
+                    return new ResultInfo
+                    {
+                        IsSuccess = true,
+                        Message = "ثبت خروج با موفقیت انجام گردید",
+                        Status = nameof(OprationStatus.success),
+                        Title = "موفق"
+                    };
+                }
+                catch
+                {
+                    return new ResultInfo
+                    {
+                        IsSuccess = true,
+                        Message = "خطا در ثبت خروج",
+                        Status = nameof(OprationStatus.error),
+                        Title = "ناموفق"
+                    };
+                }
+            }
+            return new ResultInfo
+            {
+                IsSuccess = true,
+                Message = "رکوردی پیدا نشد",
+                Status = nameof(OprationStatus.warning),
+                Title = "ناموفق"
+            };
+
         }
 
         public async Task<ResultInfo> getCard(long Id)
@@ -118,6 +158,8 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                    Pic = s.PicPath,
                    Staff = s.Staff,
                    OfishDateTime = s.OffishTime,
+                   ExitDate = s.ExitTime , 
+                   
                }).AsQueryable().OrderByDescending(a=>a.OfishDateTime);
 
             var model = await modelList.ToPaged<OfishListVM>(pageId, "لیست تردد ارباب و رجوع", 10);

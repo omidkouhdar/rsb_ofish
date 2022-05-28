@@ -1,15 +1,16 @@
 ﻿
 
-    <div  id="dataList">
-        
-    </div>
+<div id="dataList">
+
+</div>
 
 
 
 
-@section Scripts{ 
-     
-    <script>       
+@section Scripts{
+    <script src="~/lib/Sweetalert2/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="~/lib/Sweetalert2/sweetalert2.min.css" />
+    <script>
 
         function getData(pageid) {
             var url = '/home/getTodayData';
@@ -28,30 +29,62 @@
             });
         }
     </script>
-<script>
-    $(function () {
-        getData(1);
-    });
-</script>
-<script >
-    function showCard(id) {
-        
-        $.ajax({
-            url: '/Ofish/showCard/',
-            data: { Id: id },
-            type: 'get',
-            success: function (result) {
-               //$('#myModalLabel').html('تصویر کارت ملی');
-                $('#myModalBody').html(result);
-                $('#myModal').modal("show");
-            },
-            error: function (err) {
-
-            }
-
-
+    <script>
+        $(function () {
+            getData(1);
         });
-    }
-</script>
+    </script>
+    <script>
+        function showCard(id) {
+
+            $.ajax({
+                url: '/Ofish/showCard/',
+                data: { Id: id },
+                type: 'get',
+                success: function (result) {
+                    //$('#myModalLabel').html('تصویر کارت ملی');
+                    $('#myModalBody').html(result);
+                    $('#myModal').modal("show");
+                },
+                error: function (err) {
+
+                }
+
+
+            });
+        }
+    </script>
+    <script>
+        function Exit(id) {
+
+            $.ajax({
+                url: '/Ofish/Exit/',
+                data: { Id: id },
+                type: 'get',
+                success: function (result) {
+
+                    if (result.isSuccess == true) {
+                        swal.fire(
+                            result.title,
+                            result.message,
+                            result.status
+                        ).then(function (isConfirm) {
+                            window.location.replace("/")
+                        });
+                    } else if (result.isSuccess == false) {
+                        swal.fire(result.title,
+                            result.message,
+                            result.status);
+                    }
+                },
+                error: function (err) {
+
+                }
+
+
+            });
+        }
+    </script>
+
 
 }

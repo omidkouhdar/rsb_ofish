@@ -28,7 +28,10 @@
                 ملاقات شونده
             </th>
             <th>
-                تاریخ ملاقات
+                تاریخ ورود<span><i class="icon-calendar"></i></span>
+            </th>
+            <th>
+                تاریخ خروج<span><i class="icon-calendar"></i></span> 
             </th>
 
             <th></th>
@@ -37,34 +40,53 @@
     <tbody id="dataList">
         @foreach (var item in Model.DataList)
         {
-            <tr>
-                <td>
-                    @counter
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NationCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Office)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Staff)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OfishDate)
-                </td>
+        <tr>
+            <td>
+                @counter
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NationCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Office)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Staff)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfishDate)
+            </td>
+            <td>
+                @if (item.IsExited)
+                {
+                    @Html.DisplayFor(modelItem => item.ExitDateTime)
+                }
+            </td>
+            <td>
+                <button onclick="showCard('@item.Id')" type="button" class="btn btn-default" title="نمایش کارت ملی">
 
-                <td>
-                    <button onclick="showCard('@item.Id')" type="button" class="btn btn-default" title="نمایش کارت ملی">
-                      
-                        <i class="glyphicon glyphicon-camera"></i>
+                    <i class="glyphicon glyphicon-camera"></i>
+
+                </button>
+                |
+                @if (!item.IsExited)
+                {
+
+                    <button onclick="Exit('@item.Id')" type="button" class="btn btn-warning" title="ثبت خروج">
+
+                        <i class="icon-signout"></i>
 
                     </button>
-                </td>
-            </tr>
+
+                }
+
+            </td>
+          
+
+        </tr>
             counter += 1;
         }
     </tbody>

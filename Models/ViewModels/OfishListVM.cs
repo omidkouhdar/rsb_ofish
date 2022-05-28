@@ -9,7 +9,7 @@ namespace RSB_Ofish_System.Models.ViewModels
     public class OfishListVM
     {
         public long Id { get; set; }
-        [Display(Name ="اداره /واحد")]
+        [Display(Name = "اداره /واحد")]
         public string Office { get; set; }
         [Display(Name = "ملاقات شونده")]
         public string Staff { get; set; }
@@ -20,15 +20,38 @@ namespace RSB_Ofish_System.Models.ViewModels
             get
             {
 
-                return this.OfishDateTime.ToshamsiDate();
+                return $"{this.OfishDateTime.ToshamsiDate()} - {this.OfishDateTime.ToShortTimeString()}" ;
             }
         }
+
+        public DateTime? ExitDate { get; set; }
+
+
+
         [Display(Name = " ملاقات کننده")]
         public string FullName { get; set; }
         [Display(Name = "کد ملی")]
         public string NationCode { get; set; }
         public string User { get; set; }
         public string Pic { get; set; }
+
+        public bool IsExited
+        {
+            get
+            {
+                return (!this.ExitDate.HasValue ) ? false : true;
+            }
+        }
+
+        [Display(Name = "تاریخ و زمان خروج")]
+        public string ExitDateTime
+        {
+            get
+            {
+                return IsExited ? $"{ExitDate.Value.ToshamsiDate()} - { ExitDate.Value.ToShortTimeString()}" : string.Empty;
+                
+            }
+        }
 
     }
 
@@ -38,7 +61,7 @@ namespace RSB_Ofish_System.Models.ViewModels
         public string ListTitle { get; set; }
         public int TotalRows { get; set; }
         public int PageCount { get; set; }
-        
+
 
     }
 }

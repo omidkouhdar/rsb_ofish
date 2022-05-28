@@ -9,6 +9,7 @@ namespace RSB_Ofish_System.Models.DataBaseModels
     {
         public long Id { get; set; }
         public string UserId { get; set; }
+        public string OnExitRegister { get; set; }
         //**********************************************
         public string FullName { get; set; }
         public string Staff { get; set; }
@@ -18,7 +19,7 @@ namespace RSB_Ofish_System.Models.DataBaseModels
 
         //**********************************************
         public DateTime OffishTime { get; set; }
-        public DateTime ExitTime { get; set; }
+        public DateTime? ExitTime { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
 
@@ -37,17 +38,6 @@ namespace RSB_Ofish_System.Models.DataBaseModels
         
         public virtual ICollection<Ofish> Ofishes { get; set; }
         public virtual ICollection<Staff> Staffs { get; set; }
-
-    }
-    public class Staff
-    {
-        public int Id { get; set; }
-        public string  firstName { get; set; }
-        public  string sureName{ get; set; }
-        public string FullName => firstName + " " + sureName;
-        public Sexual sexual { get; set; }
-        public int OfficeId { get; set; }
-        public virtual Office  Office { get; set; }
 
     }
     public enum Sexual
