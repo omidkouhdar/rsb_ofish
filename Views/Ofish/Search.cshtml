@@ -1,0 +1,180 @@
+﻿@model RSB_Ofish_System.Models.ViewModels.SearchVM
+
+
+
+<h4>جستجوی ملاقات ها<i class="icon-search"></i></h4>
+<hr />
+<div class="row">
+    <div asp-validation-summary="All" class=" text-danger" id="validationLable"  style="padding-right:12px;">
+        برای جستجو ، مقدار دهی به حداقل یکی از مقادیر فرم ضروری میباشد
+    </div>
+    <form asp-action="Search" id="searchForm">
+        <div class="col-md-4">
+
+
+            <div class="form-group">
+                <label id="searchForm" asp-for="From" class="control-label"></label>
+                <div class="input-group" style="width:150px">
+                    <input type="text" name="From" id="From" class="form-control"
+                           data-mddatetimepicker="true"
+                           data-targetselector="#From" data-enabletimepicker="false"
+                           data-trigger="click" data-englishnumber="true" />
+                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                </div>
+                <span asp-validation-for="From" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NationCode" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="NationCode" class="form-control" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
+                </div>
+
+                <span asp-validation-for="NationCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Staff" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="Staff" class="form-control" />
+                    <span class="input-group-addon"><i class="icon-user"></i></span>
+                </div>
+                <span asp-validation-for="Staff" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                    <span>
+                        جستجو
+                    </span>
+                    <i class="icon-search"></i>
+                </button>
+                <button type="reset" class="btn btn-warning">
+                    <span>
+                        پاک کن
+                    </span>
+                    <i class="icon-eraser"></i>
+                </button>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+
+
+
+            <div class="form-group">
+                <label asp-for="To" class="control-label"></label>
+
+
+                <div class="input-group" style="width:150px">
+                    <input type="text" name="To" id="To" class="form-control"
+                           data-mddatetimepicker="true"
+                           data-targetselector="#To" data-enabletimepicker="false"
+                           data-trigger="click" data-englishnumber="true" />
+                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                </div>
+
+
+                <span asp-validation-for="To" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="FullName" class="form-control" />
+                    <span class="input-group-addon"><i class="icon-user"></i></span>
+                </div>
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OfficId" class="control-label"></label>
+                <select asp-for="OfficId" asp-items="@(new SelectList(ViewBag.Office , "Id" , "Name")) " class="form-control">
+                </select>
+                <span asp-validation-for="OfficId" class="text-danger"></span>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+<div class="row" id="content">
+
+</div>
+
+@section Styles{
+
+    <link rel="stylesheet" href="~/Them/assets/MdBootstrapPersianDateTimePicker/css/jquery.Bootstrap-PersianDateTimePicker.css" />
+
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script src="~/lib/Sweetalert2/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="~/lib/Sweetalert2/sweetalert2.min.css" />
+
+
+    <script type="text/javascript" src="~/Them/assets/MdBootstrapPersianDateTimePicker/js/jalaali.js"></script>
+    <script type="text/javascript" src="~/Them/assets/MdBootstrapPersianDateTimePicker/js/jquery.Bootstrap-PersianDateTimePicker.js"></script>
+    <script>
+
+        $('#searchForm').on('submit', function (e) {
+            e.preventDefault();
+            getData(1);
+        });
+        function getData(pageId) {
+            
+            var url = $('#searchForm').attr('action');
+            var data = $('#searchForm').serializeArray();
+            var headers = { __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() };
+
+            data.push({ name: "pageId", value: pageId });
+            data.push({ name: "headers", value: headers });
+            $.ajax({
+                url: url,
+                data: data,
+                type: 'POST',
+                success: function (result) {
+
+                    //console.log(result);
+
+                    $('#content').html(result);
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+
+            });
+
+        }
+
+        function showCard(id) {
+
+            $.ajax({
+                url: '/Ofish/showCard/',
+                data: { Id: id },
+                type: 'get',
+                success: function (result) {
+                    //$('#myModalLabel').html('تصویر کارت ملی');
+                    $('#myModalBody').html(result);
+                    $('#myModal').modal("show");
+                },
+                error: function (err) {
+
+                }
+
+
+            });
+        }
+
+    </script>
+
+    <script>
+    
+    </script>
+}
