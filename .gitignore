@@ -1,4 +1,4 @@
-wwwroot/*.*
-bin/*.*
-~/*.json
-obj/*.*
+wwwroot/
+bin/
+*.json
+obj/
