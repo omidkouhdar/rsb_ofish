@@ -75,7 +75,7 @@
                     }
                     else
                     {
-                        <hr/>
+                        <hr />
                         <li>
                             <a class="" href="@Url.Action("resetPassword" , "Auth")">
                                 <i class="icon-exchange"></i>
@@ -92,6 +92,15 @@
                                 <span>نگهبان</span> @User.FindFirst("FullName").Value
                             </h3>
 
+                        </li>
+                        <li>
+                            
+                                <a class="btn btn-default" href="@Url.Action("Search" , "Ofish")" >
+                                    <span>جستجو</span>
+                                    <i class="glyphicon glyphicon-search"></i>
+
+                                </a>
+                            
                         </li>
                         <li>
                             <form id="signoutform" asp-action="SignOut" asp-controller="Auth" role="form" method="post">

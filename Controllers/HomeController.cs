@@ -31,6 +31,7 @@ namespace RSB_Ofish_System.Controllers
             var model = await _ofishService.GetTodayOfishLists(pageId);
             return PartialView("_ofishDataView", model);
         }
+       
 
         public IActionResult Privacy()
         {

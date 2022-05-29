@@ -44,4 +44,29 @@ namespace RSB_Ofish_System.Models.ViewModels
 
 
     }
+    public class SearchVM
+    {
+        
+        [Display(Name ="از")]
+        public string From { get; set; }
+        [Display(Name = "تا")]
+        public string To { get; set; }
+       
+        [Display(Name = "کدملی")]
+        public string NationCode { get; set; }
+       
+        [Display(Name = "ملاقات کننده")]
+        public string FullName { get; set; }
+        
+        [Display(Name = "ملاقات شونده")]
+        public string Staff { get; set; }
+        
+        [Display(Name = "واحد/اداره")]
+        public int OfficId { get; set; }
+    }
+    public class SelectListItemVM
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
 }

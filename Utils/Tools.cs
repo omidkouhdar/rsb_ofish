@@ -26,7 +26,24 @@ namespace CommonTools
             System.Globalization.PersianCalendar pc = new System.Globalization.PersianCalendar();
             return pc.GetYear(Date);
         }
+        public static DateTime convertShamsiToMiladi(this string shamsiDate)
+        {
 
+            if (string.IsNullOrWhiteSpace(shamsiDate))
+            {
+                return DateTime.MinValue;
+            }
+            var dateItems = shamsiDate.Split('/');
+            int yer = 0;
+            int month = 0;
+            int day = 1;
+            int.TryParse(dateItems[0], out yer);
+            int.TryParse(dateItems[1], out month);
+            int.TryParse(dateItems[2], out day);
+            var calender = new System.Globalization.PersianCalendar();
+            DateTime date = new DateTime(yer, month, day, calender);
+            return date;
+        }
 
         public static Int64 ConvertShamsiDateToInt(this string ShamsiDate)
         {

@@ -58,6 +58,7 @@ namespace RSB_Ofish_System.Models.ViewModels
     public class ListResultVM<T>
     {
         public IEnumerable<T> DataList { get; set; }
+        public bool Issuccesd { get; set; }
         public string ListTitle { get; set; }
         public int TotalRows { get; set; }
         public int PageCount { get; set; }

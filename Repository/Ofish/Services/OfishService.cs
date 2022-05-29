@@ -15,7 +15,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
         public OfishService(RSB_Ofish_SystemContext dataBase)
         {
             _dataBase = dataBase;
-            
+
         }
 
         public async Task<ResultInfo> addOfish(OfishVM ofish, string img)
@@ -41,9 +41,9 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                     OfficeId = ofish.OfficeId,
                     OffishTime = DateTime.Now,
                     PicPath = picPath,
-                    Staff = ofish.Staff , 
-                    UserId = ofish.UserId , 
-                    
+                    Staff = ofish.Staff,
+                    UserId = ofish.UserId,
+
                 });
                 try
                 {
@@ -62,7 +62,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                     {
                         IsSuccess = false,
                         Message = "ایجاد مشکل در ثبت اطلاعات",
-                        Title = "عملیات ناموفق" , 
+                        Title = "عملیات ناموفق",
                         Status = nameof(OprationStatus.error)
                     };
                 }
@@ -72,7 +72,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
             {
                 Title = "اسکن مدرک انجام نشد",
                 Message = "عملیات نا موفق",
-                IsSuccess = false ,
+                IsSuccess = false,
                 Status = nameof(OprationStatus.error)
             };
         }
@@ -84,8 +84,8 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
 
         public async Task<ResultInfo> Exit(long Id, string UserId)
         {
-            var ofish =  _dataBase.Ofish.Find(Id);
-            if(ofish != null)
+            var ofish = _dataBase.Ofish.Find(Id);
+            if (ofish != null)
             {
                 ofish.ExitTime = DateTime.Now;
                 ofish.OnExitRegister = UserId;
@@ -124,13 +124,13 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
         public async Task<ResultInfo> getCard(long Id)
         {
             var ofish = await _dataBase.Ofish.FindAsync(Id);
-            if(ofish != null)
+            if (ofish != null)
             {
                 return new ResultInfo
                 {
                     IsSuccess = true,
                     Message = ofish.PicPath,
-                    Title = $"تصویر کارت ملی آقا / خانم {ofish.FullName}" 
+                    Title = $"تصویر کارت ملی آقا / خانم {ofish.FullName}"
                 };
             }
             else
@@ -140,14 +140,14 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                     IsSuccess = false
                 };
             }
-            
+
         }
 
         public async Task<ListResultVM<OfishListVM>> GetTodayOfishLists(int pageId = 1)
         {
-            
-            
-            var modelList =  _dataBase.Ofish.Include(a => a.Office)
+
+
+            var modelList = _dataBase.Ofish.Include(a => a.Office)
                .Where(a => a.OffishTime.Date == DateTime.Now.Date)
                .Select(s => new OfishListVM
                {
@@ -158,15 +158,86 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                    Pic = s.PicPath,
                    Staff = s.Staff,
                    OfishDateTime = s.OffishTime,
-                   ExitDate = s.ExitTime , 
-                   
-               }).AsQueryable().OrderByDescending(a=>a.OfishDateTime);
+                   ExitDate = s.ExitTime,
+
+               }).AsQueryable().OrderByDescending(a => a.OfishDateTime);
 
             var model = await modelList.ToPaged<OfishListVM>(pageId, "لیست تردد ارباب و رجوع", 10);
 
             return model;
         }
 
-       
+        public async Task<ListResultVM<OfishListVM>> Search(SearchVM model, int pageId = 1)
+        {
+
+           
+            var from = model.From.convertShamsiToMiladi().Date;
+            var to = model.To.convertShamsiToMiladi().Date;
+            var list = _dataBase.Ofish.Include(a => a.Office)
+                .AsQueryable();
+            if (from > to)
+            {
+                var tmp = to;
+                to = from;
+                from = tmp;
+            }
+            if(to == from)
+            {
+                if(to > DateTime.MinValue)
+                list = list.Where(s => s.OffishTime.Date == from);
+            }
+            else
+            {
+                list = list.Where(s => s.OffishTime.Date >= from && s.OffishTime.Date <= to) ;
+            }
+            
+            
+
+            if (model.OfficId != 0)
+            {
+                list = list.Where(s => s.OfficeId == model.OfficId);
+            }
+            if (!string.IsNullOrEmpty(model.Staff))
+            {
+                list = list.Where(s => s.Staff.Contains(model.Staff));
+            }
+            if (!string.IsNullOrEmpty(model.FullName))
+            {
+                list = list.Where(s => s.FullName.Contains(model.FullName));
+            }
+            if (!string.IsNullOrEmpty(model.NationCode))
+            {
+                list = list.Where(s => s.NationCode == model.NationCode);
+            }
+
+
+            var dataList = await
+                list.Select(s => new OfishListVM
+                {
+                    FullName = s.FullName,
+                    Id = s.Id,
+                    NationCode = s.NationCode,
+                    Office = s.Office.Name,
+                    Pic = s.PicPath,
+                    Staff = s.Staff,
+                    OfishDateTime = s.OffishTime,
+                    ExitDate = s.ExitTime,
+                })
+                .AsQueryable().OrderByDescending(s => s.OfishDateTime)
+                .ToPaged(pageId, "لیست تردد ارباب و رجوع", 10);
+
+
+
+
+
+            return new ListResultVM<OfishListVM>
+            {
+                DataList = dataList.DataList,
+                Issuccesd = true,
+                ListTitle = dataList.ListTitle,
+                PageCount = dataList.PageCount,
+                TotalRows = dataList.TotalRows
+            };
+        }
     }
 }

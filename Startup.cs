@@ -13,6 +13,9 @@ using RSB_Ofish_System.Repository.Users.Service;
 using RSB_Ofish_System.Repository.Users.Interface;
 using Microsoft.AspNetCore.DataProtection;
 using RSB_Ofish_System.Utils;
+using RSB_Ofish_System.Repository.Office.Interface;
+using RSB_Ofish_System.Repository.Office.Service;
+
 namespace RSB_Ofish_System
 {
     public class Startup
@@ -49,6 +52,7 @@ namespace RSB_Ofish_System
             );
 
             services.AddScoped<IOfishService, OfishService>();
+            services.AddScoped<IOfficeService, OfficeService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<Iprotector, Protector>();
 

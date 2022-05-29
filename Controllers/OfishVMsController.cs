@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using RSB_Ofish_System.Data;
 using RSB_Ofish_System.Models.DataBaseModels;
 using RSB_Ofish_System.Models.ViewModels;
+using RSB_Ofish_System.Repository.Office.Interface;
 using RSB_Ofish_System.Repository.Ofish.Interfaces;
 
 namespace RSB_Ofish_System.Controllers
@@ -17,13 +18,13 @@ namespace RSB_Ofish_System.Controllers
     [Authorize(Roles = "Guard")]
     public class OfishController : Controller
     {
-        
 
-        private readonly RSB_Ofish_SystemContext _context;
+
+        private readonly IOfficeService _officeService;
         private readonly IOfishService _ofishService;
-        public OfishController(RSB_Ofish_SystemContext context, IOfishService ofishService )
+        public OfishController(IOfficeService officeService, IOfishService ofishService )
         {
-            _context = context;
+            _officeService = officeService;
             _ofishService = ofishService;
           
         }
@@ -44,14 +45,42 @@ namespace RSB_Ofish_System.Controllers
             var model = await _ofishService.GetTodayOfishLists();
             return View(model);
         }
-
-  
-
-        // GET: OfishVMs/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Search()
         {
 
-            ViewBag.office = _context.Office.ToList();
+            ViewBag.Office = await _officeService.GetList();
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Search(SearchVM model , int pageId = 1)
+        {
+            bool FormIsEmpty = string.IsNullOrEmpty(string.Concat(model.From, model.FullName, model.NationCode, model.Staff, model.To))
+               && model.OfficId == 0;
+            if (FormIsEmpty)
+            {
+                ModelState.AddModelError(string.Empty, "یکی از مقادیر فرم میبایشت مقدار دهی شود ");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var result = await _ofishService.Search(model, pageId);
+                ViewData["currenPage"] = pageId;
+                return PartialView("_ofishDataView", result);
+                
+            }
+            //ViewBag.Office = await _officeService.GetList();
+            return Json("");
+
+        }
+
+        // GET: OfishVMs/Create
+        public async Task< IActionResult> Create()
+        {
+
+            ViewBag.office = await _officeService.GetList();
             return View();
         }
 
@@ -70,94 +99,10 @@ namespace RSB_Ofish_System.Controllers
                 var result = await _ofishService.addOfish(ofishVM, img);
                 return Json(result);
             }
-            ViewBag.office = _context.Office.ToList();
+            ViewBag.office = await _officeService.GetList();
             return View(ofishVM);
         }
 
-        // GET: OfishVMs/Edit/5
-        public async Task<IActionResult> Edit(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ofishVM = await _context.Ofish.FindAsync(id);
-            if (ofishVM == null)
-            {
-                return NotFound();
-            }
-
-            return View(ofishVM);
-        }
-
-        // POST: OfishVMs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,NationalCode,FullName,OfficeId,Staff,Description")] OfishVM ofishVM)
-        {
-            if (id != ofishVM.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(ofishVM);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OfishVMExists(ofishVM.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(ofishVM);
-        }
-
-        // GET: OfishVMs/Delete/5
-        public async Task<IActionResult> Delete(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ofishVM = await _context.Ofish
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ofishVM == null)
-            {
-                return NotFound();
-            }
-
-            return View(ofishVM);
-        }
-
-        // POST: OfishVMs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
-        {
-            var ofishVM = await _context.Ofish.FindAsync(id);
-            _context.Ofish.Remove(ofishVM);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool OfishVMExists(long id)
-        {
-            return _context.Ofish.Any(e => e.Id == id);
-        }
+  
     }
 }
