@@ -28,7 +28,7 @@
                 تاریخ ورود<span><i class="icon-calendar"></i></span>
             </th>
             <th>
-                تاریخ خروج<span><i class="icon-calendar"></i></span> 
+                تاریخ خروج<span><i class="icon-calendar"></i></span>
             </th>
 
             <th></th>
@@ -37,55 +37,61 @@
     <tbody id="dataList">
         @foreach (var item in Model.DataList)
         {
-        <tr>
-            <td>
-                @counter
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NationCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Office)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Staff)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfishDate)
-            </td>
-            <td>
-                @if (item.IsExited)
-                {
-                    @Html.DisplayFor(modelItem => item.ExitDateTime)
-                }
-            </td>
-            <td>
-                <button onclick="showCard('@item.Id')" type="button" class="btn btn-default" title="نمایش کارت ملی">
+            <tr>
+                <td>
+                    @counter
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NationCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Office)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Staff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfishDate)
+                </td>
+                <td>
+                    @if (item.IsExited)
+                    {
+                        @Html.DisplayFor(modelItem => item.ExitDateTime)
+                    }
+                </td>
+                <td>
+                    <button onclick="showCard('@item.Id')" type="button" class="btn btn-default" title="نمایش کارت ملی">
 
-                    <i class="glyphicon glyphicon-camera"></i>
-
-                </button>
-                |
-                @if (!item.IsExited)
-                {
-
-                    <button onclick="Exit('@item.Id')" type="button" class="btn btn-warning" title="ثبت خروج">
-
-                        <i class="icon-signout"></i>
+                        <i class="glyphicon glyphicon-camera"></i>
 
                     </button>
+                    |
+                    @if (!item.IsExited)
+                    {
 
-                }
+                        <button onclick="Exit('@item.Id')" type="button" class="btn btn-warning" title="ثبت خروج">
 
-            </td>
-          
+                            <i class="icon-signout"></i>
 
-        </tr>
+                        </button>
+
+                    }
+
+                </td>
+
+
+            </tr>
             counter += 1;
         }
     </tbody>
 </table>
+
+@section Scripts{
+    
+
+}
+
 <partial name="_pagination" />

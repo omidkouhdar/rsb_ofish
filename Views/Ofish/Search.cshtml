@@ -112,12 +112,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-
     <script src="~/lib/Sweetalert2/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="~/lib/Sweetalert2/sweetalert2.min.css" />
-
-
     <script type="text/javascript" src="~/Them/assets/MdBootstrapPersianDateTimePicker/js/jalaali.js"></script>
     <script type="text/javascript" src="~/Them/assets/MdBootstrapPersianDateTimePicker/js/jquery.Bootstrap-PersianDateTimePicker.js"></script>
     <script>
@@ -153,28 +149,9 @@
 
         }
 
-        function showCard(id) {
-
-            $.ajax({
-                url: '/Ofish/showCard/',
-                data: { Id: id },
-                type: 'get',
-                success: function (result) {
-                    //$('#myModalLabel').html('تصویر کارت ملی');
-                    $('#myModalBody').html(result);
-                    $('#myModal').modal("show");
-                },
-                error: function (err) {
-
-                }
-
-
-            });
-        }
+       
 
     </script>
-
-    <script>
+    @{ await Html.RenderPartialAsync("_oprationJsView");}
     
-    </script>
 }
