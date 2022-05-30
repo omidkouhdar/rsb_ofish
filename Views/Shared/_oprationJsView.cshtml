@@ -1,0 +1,52 @@
+﻿
+<script>
+    function showCard(id) {
+
+        $.ajax({
+            url: '/Ofish/showCard/',
+            data: { Id: id },
+            type: 'get',
+            success: function (result) {
+                
+                $('#myModalBody').html(result);
+                $('#myModal').modal("show");
+            },
+            error: function (err) {
+
+            }
+
+
+        });
+    }
+</script>
+
+<script>
+    function Exit(id) {
+
+        $.ajax({
+            url: '/Ofish/Exit/',
+            data: { Id: id },
+            type: 'get',
+            success: function (result) {
+
+                if (result.isSuccess == true) {
+                    swal.fire(
+                        result.title,
+                        result.message,
+                        result.status
+                    ).then(function (isConfirm) {
+                        window.location.replace("/")
+                    });
+                } else if (result.isSuccess == false) {
+                    swal.fire(result.title,
+                        result.message,
+                        result.status);
+                }
+            },
+            error: function (err) {
+
+            }
+
+        });
+    }
+</script>
