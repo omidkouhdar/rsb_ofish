@@ -125,11 +125,11 @@ namespace CommonTools
                 Bitmap srcbitmap;
                 Bitmap cropedBitmap;
                 byte[] imageData;
-                using (var ms  = new MemoryStream(image))
+                using (var ms = new MemoryStream(image))
                 {
                     srcbitmap = new Bitmap(ms);
                 }
-                using(var croper = new ImageCropper())
+                using (var croper = new ImageCropper())
                 {
                     cropedBitmap = croper.getCrropped(srcbitmap);
                 }
@@ -138,7 +138,7 @@ namespace CommonTools
 
                 srcbitmap.Dispose();
 
-                    string picName = Guid.NewGuid().ToString() + ".jpeg";
+                string picName = Guid.NewGuid().ToString() + ".jpeg";
                 string pathTpStore = Path.Combine(dirPath, picName);
 
                 using (var stream = new MemoryStream())
@@ -148,7 +148,7 @@ namespace CommonTools
                 }
 
 
-                    File.WriteAllBytes(pathTpStore, imageData);
+                File.WriteAllBytes(pathTpStore, image);
                 return Path.Combine("/ofishimg/", getTodayFolder(), picName);
             }
             catch
