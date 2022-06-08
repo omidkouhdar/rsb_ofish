@@ -146,7 +146,7 @@ namespace CommonTools
                     cropedBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
                     imageData = stream.ToArray();
                 }
-
+                cropedBitmap.Dispose();
 
                 File.WriteAllBytes(pathTpStore, imageData);
                 return Path.Combine("/ofishimg/", getTodayFolder(), picName);
