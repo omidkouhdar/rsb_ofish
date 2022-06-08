@@ -88,7 +88,7 @@
 
         function postData() {
             Webcam.snap(function (data_uri) {
-
+               
                 var img = data_uri;
                 var url = $('#form').attr('action');
                 var headers = { __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() };

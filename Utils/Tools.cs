@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RSB_Ofish_System.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -120,7 +121,15 @@ namespace CommonTools
                 }
 
                 var image = Convert.FromBase64String(Base64string);
-                string picName = Guid.NewGuid().ToString() + ".jpeg";
+                Bitmap bitmap;
+                using (var ms  = new MemoryStream(image))
+                {
+                    bitmap = new Bitmap(ms);
+                }
+
+                bitmap.Dispose();
+
+                    string picName = Guid.NewGuid().ToString() + ".jpeg";
                 string pathTpStore = Path.Combine(dirPath, picName);
                 File.WriteAllBytes(pathTpStore, image);
                 return Path.Combine("/ofishimg/", getTodayFolder(), picName);
