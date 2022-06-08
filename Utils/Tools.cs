@@ -148,7 +148,7 @@ namespace CommonTools
                 }
 
 
-                File.WriteAllBytes(pathTpStore, image);
+                File.WriteAllBytes(pathTpStore, imageData);
                 return Path.Combine("/ofishimg/", getTodayFolder(), picName);
             }
             catch
