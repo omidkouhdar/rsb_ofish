@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using RSB_Ofish_System.Models.ViewModels;
+using RSB_Ofish_System.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -121,17 +122,33 @@ namespace CommonTools
                 }
 
                 var image = Convert.FromBase64String(Base64string);
-                Bitmap bitmap;
+                Bitmap srcbitmap;
+                Bitmap cropedBitmap;
+                byte[] imageData;
                 using (var ms  = new MemoryStream(image))
                 {
-                    bitmap = new Bitmap(ms);
+                    srcbitmap = new Bitmap(ms);
+                }
+                using(var croper = new ImageCropper())
+                {
+                    cropedBitmap = croper.getCrropped(srcbitmap);
                 }
 
-                bitmap.Dispose();
+
+
+                srcbitmap.Dispose();
 
                     string picName = Guid.NewGuid().ToString() + ".jpeg";
                 string pathTpStore = Path.Combine(dirPath, picName);
-                File.WriteAllBytes(pathTpStore, image);
+
+                using (var stream = new MemoryStream())
+                {
+                    cropedBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    imageData = stream.ToArray();
+                }
+
+
+                    File.WriteAllBytes(pathTpStore, imageData);
                 return Path.Combine("/ofishimg/", getTodayFolder(), picName);
             }
             catch
