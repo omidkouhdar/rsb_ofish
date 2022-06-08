@@ -47,7 +47,7 @@ namespace RSB_Ofish_System.Utils
             CvInvoke.CvtColor(srcNewSize, grayImage, ColorConversion.Bgr2Gray);
             
             //Gaussian filtering is used to remove noise
-            CvInvoke.GaussianBlur(grayImage, grayImage, new Size(3, 3), 0);
+            CvInvoke.GaussianBlur(grayImage, grayImage, new Size(1, 1), 0);
 
            
             UMat cannyEdges = new UMat();
