@@ -216,3 +216,4 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\x86\opencv_v
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\x86\vcruntime140.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\Emgu.CV.Platform.NetCore.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\Emgu.CV.Platform.NetStandard.dll
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\Razor\Views\Shared\_ErrorView.cshtml.g.cs

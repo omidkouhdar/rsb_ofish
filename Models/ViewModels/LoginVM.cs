@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using CommonTools;
+
 namespace RSB_Ofish_System.Models.ViewModels
 {
     public class LoginVM
@@ -49,9 +51,29 @@ namespace RSB_Ofish_System.Models.ViewModels
         
         [Display(Name ="از")]
         public string From { get; set; }
+        public DateTime FromDate 
+        { 
+            get
+            { 
+                return this.From.convertShamsiToMiladi().Date;
+            } 
+        }
+
+
+
         [Display(Name = "تا")]
         public string To { get; set; }
-       
+
+
+        public DateTime ToDate
+        {
+            get
+            { 
+                return this.To.convertShamsiToMiladi().Date;
+            }
+        }
+
+
         [Display(Name = "کدملی")]
         public string NationCode { get; set; }
        

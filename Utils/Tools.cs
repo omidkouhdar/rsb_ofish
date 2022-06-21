@@ -14,6 +14,13 @@ namespace CommonTools
 {
     public static class Tools
     {
+        public static bool isInValidDateTimeSpan(DateTime from, DateTime to)
+        {
+            if (to == DateTime.MinValue && from != DateTime.MinValue)
+                return false;
+            return (from - to ).TotalDays > 0;
+
+        }
         public static string GetUserId(System.Security.Claims.ClaimsPrincipal principal)
         {
             return principal.FindFirst(ClaimTypes.NameIdentifier).Value;

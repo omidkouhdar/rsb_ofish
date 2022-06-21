@@ -61,7 +61,13 @@ namespace RSB_Ofish_System.Controllers
                && model.OfficId == 0;
             if (FormIsEmpty)
             {
-                ModelState.AddModelError(string.Empty, "یکی از مقادیر فرم میبایشت مقدار دهی شود ");
+                ModelState.AddModelError(string.Empty, "یکی از مقادیر فرم میبایست مقدار دهی شود ");
+                
+            }
+            if( CommonTools.Tools.isInValidDateTimeSpan(model.FromDate, model.ToDate))
+            {
+                ModelState.AddModelError(string.Empty, "تاریخ شروع از تاریخ پایان بزرگتر است");
+                
             }
 
             if (ModelState.IsValid)
@@ -71,8 +77,19 @@ namespace RSB_Ofish_System.Controllers
                 return PartialView("_ofishDataView", result);
                 
             }
-            //ViewBag.Office = await _officeService.GetList();
-            return Json("");
+            var Errors = new string[ModelState.ErrorCount] ;
+            int c = 0;
+            foreach (var modelstate in ModelState.Values)
+            {
+                foreach(var modelerror in modelstate.Errors)
+                {
+                    Errors[c] = modelerror.ErrorMessage;
+                    c += 1;
+                }
+            }
+            
+            return PartialView("_ErrorView" , Errors );
+
 
         }
 

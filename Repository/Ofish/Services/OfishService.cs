@@ -170,28 +170,22 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
         public async Task<ListResultVM<OfishListVM>> Search(SearchVM model, int pageId = 1)
         {
 
-           
-            var from = model.From.convertShamsiToMiladi().Date;
-            var to = model.To.convertShamsiToMiladi().Date;
             var list = _dataBase.Ofish.Include(a => a.Office)
                 .AsQueryable();
-            if (from > to)
+
+           if(model.FromDate != DateTime.MinValue && model.ToDate != DateTime.MinValue)
             {
-                var tmp = to;
-                to = from;
-                from = tmp;
+                list = list.Where(s => s.OffishTime.Date >= model.FromDate && s.OffishTime.Date <= model.ToDate);
             }
-            if(to == from)
+            else if (model.FromDate == DateTime.MinValue && model.ToDate != DateTime.MinValue)
             {
-                if(to > DateTime.MinValue)
-                list = list.Where(s => s.OffishTime.Date == from);
+                list = list.Where(s => s.OffishTime.Date <= model.ToDate);
             }
-            else
+            else if (model.FromDate != DateTime.MinValue && model.ToDate == DateTime.MinValue)
             {
-                list = list.Where(s => s.OffishTime.Date >= from && s.OffishTime.Date <= to) ;
+                list = list.Where(s => s.OffishTime.Date >= model.FromDate);
             }
-            
-            
+           
 
             if (model.OfficId != 0)
             {
