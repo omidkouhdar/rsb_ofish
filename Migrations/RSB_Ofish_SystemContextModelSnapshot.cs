@@ -74,6 +74,10 @@ namespace RSB_Ofish_System.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ViheclePlate")
+                        .HasColumnType("nvarchar(14)")
+                        .HasMaxLength(14);
+
                     b.HasKey("Id");
 
                     b.HasIndex("OfficeId");

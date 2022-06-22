@@ -9,6 +9,7 @@ namespace RSB_Ofish_System.Repository.Office.Interface
     public interface IOfficeService : IDisposable
     {
         Task<List<SelectListItemVM>> GetList();
-        
+       
+
     }
 }

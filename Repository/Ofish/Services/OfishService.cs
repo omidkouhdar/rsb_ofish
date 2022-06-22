@@ -43,6 +43,9 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                     PicPath = picPath,
                     Staff = ofish.Staff,
                     UserId = ofish.UserId,
+                    ViheclePlate = ofish.HaveVihicle? 
+                    Tools.getPlate(ofish.TowDigit , ofish.Alphabet , 
+                    ofish.ThreeDigit , ofish.StataDigit):string.Empty
 
                 });
                 try

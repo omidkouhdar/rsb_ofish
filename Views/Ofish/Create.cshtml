@@ -14,7 +14,7 @@
 </a>
 <div class="row">
     <div class="col-md-6">
-        <form id="form" asp-action="Create">
+        <form  id="form" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NationalCode" class="control-label"></label>
@@ -41,6 +41,24 @@
                 <textarea asp-for="Description" rows="5" class="form-control "></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input  class="form-check-input" 
+                           asp-for="HaveVihicle" /> @Html.DisplayNameFor(model => model.HaveVihicle)
+                </label>
+            </div>
+            <div class="form-inline">
+                <label class="control-label">پلاک</label>
+                <input style="width:60px" asp-for="StataDigit" class="form-control" />|
+                <input style="width:80px" asp-for="ThreeDigit" class="form-control" />|
+                <select style="width:60px" asp-for="Alphabet" class="form-control" asp-items="@(new SelectList (ViewBag.alphabet))"></select>|
+                <input style="width:60px" asp-for="TowDigit" class="form-control" /> 
+                <span asp-validation-for="Alphabet" class="text-danger"></span>
+                <span asp-validation-for="StataDigit" class="text-danger"></span>
+                <span asp-validation-for="ThreeDigit" class="text-danger"></span>
+                <span asp-validation-for="TowDigit" class="text-danger"></span>
+            </div>
+            <br/>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
@@ -93,6 +111,7 @@
                 var url = $('#form').attr('action');
                 var headers = { __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() };
                 var dataForm = $('#form').serializeArray();
+                
                 dataForm.push({ name: "img", value: img });
                 
                 dataForm.push({ name: "headers", value: headers });
@@ -124,13 +143,28 @@
         }
     </script>
     <script>
+        $(document).ready(function () {
+            $('#HaveVihicle').prop('checked', true);
+        });
+        
         $(function () {
+            
             $('#form').on('submit', function (e) {
                 e.preventDefault();
                 postData();
             });
 
+            $('#HaveVihicle').on('change', function () {
+                var havevihecel = $(this).is(':checked');
+                $('#StataDigit').prop('disabled', !havevihecel);
+                $('#ThreeDigit').prop('disabled', !havevihecel);
+                $('#Alphabet').prop('disabled', !havevihecel);
+                $('#TowDigit').prop('disabled', !havevihecel);
+            });
+
         });
+
+        
     </script>
 
 }

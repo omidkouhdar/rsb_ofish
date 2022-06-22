@@ -36,5 +36,16 @@ namespace RSB_Ofish_System.Models.ViewModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string UserId { get; set; }
+        [Display(Name = "دارای وسیله نقلیه")]
+        public bool HaveVihicle { get; set; }
+        
+        public string Alphabet { get; set; }
+       
+        [MaxLength(2)]
+        public string TowDigit { get; set; }
+        [MaxLength(3)]
+        public string ThreeDigit { get; set; }
+        [MaxLength(2)]
+        public string StataDigit { get; set; }
     }
 }

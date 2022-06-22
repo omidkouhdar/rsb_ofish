@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace RSB_Ofish_System.Models.DataBaseModels
         public string FullName { get; set; }
         public string Staff { get; set; }
         public int OfficeId { get; set; }
-        public string NationCode { get; set; } 
+        public string NationCode { get; set; }
         public string PicPath { get; set; }
 
         //**********************************************
@@ -22,8 +23,8 @@ namespace RSB_Ofish_System.Models.DataBaseModels
         public DateTime? ExitTime { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
-
-
+        [MaxLength(14)]    
+        public string ViheclePlate { get; set; }
         public virtual Office Office { get; set; }
     }
     public class Office
@@ -35,14 +36,14 @@ namespace RSB_Ofish_System.Models.DataBaseModels
         }
         public int Id { get; set; }
         public string Name { get; set; }
-        
+
         public virtual ICollection<Ofish> Ofishes { get; set; }
         public virtual ICollection<Staff> Staffs { get; set; }
 
     }
     public enum Sexual
     {
-        Male = 1 , 
+        Male = 1,
         Female = 2
     }
 }

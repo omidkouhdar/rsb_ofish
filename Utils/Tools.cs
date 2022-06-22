@@ -14,6 +14,11 @@ namespace CommonTools
 {
     public static class Tools
     {
+        public static string getPlate(string towdigit , string alphabet , string threedigit , string state)
+        {
+            return $"{towdigit}-{alphabet}-{threedigit}-{state}";
+        }
+
         public static bool isInValidDateTimeSpan(DateTime from, DateTime to)
         {
             if (to == DateTime.MinValue && from != DateTime.MinValue)
