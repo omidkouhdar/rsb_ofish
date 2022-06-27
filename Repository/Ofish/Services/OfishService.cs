@@ -7,20 +7,47 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CommonTools;
+using Microsoft.Extensions.Configuration;
+
 namespace RSB_Ofish_System.Repository.Ofish.Services
 {
     public class OfishService : IOfishService
     {
         private readonly RSB_Ofish_SystemContext _dataBase;
-        public OfishService(RSB_Ofish_SystemContext dataBase)
+        private readonly IConfiguration _configuration;
+        public OfishService(RSB_Ofish_SystemContext dataBase, IConfiguration configuration)
         {
             _dataBase = dataBase;
+            _configuration = configuration;
 
         }
 
         public async Task<ResultInfo> addOfish(OfishVM ofish, string img)
         {
-            string picPath = Tools.savePic(img);
+            string VehiclepicPath = string.Empty;
+            string IdentifireCardPath = Tools.saveIdentifireCardPic(img);
+            var ofishModel = new Models.DataBaseModels.Ofish
+            {
+                Created = DateTime.Now,
+                FullName = ofish.FullName,
+
+                OfficeId = ofish.OfficeId,
+                OffishTime = DateTime.Now,
+                Staff = ofish.Staff,
+                UserId = ofish.UserId,
+            };
+            if (string.IsNullOrEmpty(IdentifireCardPath))
+            {
+                return new ResultInfo
+                {
+                    Title = "اسکن مدرک انجام نشد",
+                    Message = "عملیات نا موفق",
+                    IsSuccess = false,
+                    Status = nameof(OprationStatus.error)
+                };
+
+            }
+            ofishModel.PicPath = IdentifireCardPath;
             if (!Tools.isCorrectNationCode(ofish.NationalCode))
             {
                 return new ResultInfo
@@ -30,55 +57,72 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                     Title = "عملیات ناموفق",
                     Status = nameof(OprationStatus.error)
                 };
-            }
-            if (!string.IsNullOrEmpty(picPath))
-            {
-                _dataBase.Ofish.Add(new Models.DataBaseModels.Ofish
-                {
-                    Created = DateTime.Now,
-                    FullName = ofish.FullName,
-                    NationCode = ofish.NationalCode,
-                    OfficeId = ofish.OfficeId,
-                    OffishTime = DateTime.Now,
-                    PicPath = picPath,
-                    Staff = ofish.Staff,
-                    UserId = ofish.UserId,
-                    ViheclePlate = ofish.HaveVihicle? 
-                    Tools.getPlate(ofish.TowDigit , ofish.Alphabet , 
-                    ofish.ThreeDigit , ofish.StataDigit):string.Empty
 
-                });
-                try
+            }
+            ofishModel.NationCode = ofish.NationalCode;
+            if (ofish.HaveVihicle)
+            {
+                if (!Tools.plateIsValid(ofish.TowDigit, ofish.ThreeDigit, ofish.StataDigit))
                 {
-                    await _dataBase.SaveChangesAsync();
-                    return new ResultInfo
-                    {
-                        IsSuccess = true,
-                        Message = "اطلاعات ثبت شد",
-                        Title = "عملیات موفق",
-                        Status = nameof(OprationStatus.success)
-                    };
-                }
-                catch
-                {
+
                     return new ResultInfo
                     {
                         IsSuccess = false,
-                        Message = "ایجاد مشکل در ثبت اطلاعات",
+                        Message = "لطفا پلاک وسیله نقلیه را به درستی وارد نمائید",
+                        Status = "error",
+                        Title = "خطا"
+                    };
+                }
+                ofishModel.ViheclePlate = Tools.getPlate(ofish.TowDigit ,
+                    ofish.Alphabet ,ofish.ThreeDigit , ofish.StataDigit);
+                VehiclepicPath = Tools.GetVehicleImage(_configuration.GetSection("parkingcamera").Value);
+                if (string.IsNullOrEmpty(VehiclepicPath))
+                {
+                    Tools.DeletePicture(IdentifireCardPath);
+                    return new ResultInfo
+                    {
+                        IsSuccess = false,
+                        Message = "تصویر وسیله نقلیه ثبت نشد",
                         Title = "عملیات ناموفق",
                         Status = nameof(OprationStatus.error)
                     };
                 }
-
+                ofishModel.ViheclePic = VehiclepicPath;
             }
-            return new ResultInfo
+
+         _dataBase.Ofish.Add(ofishModel);
+            try
             {
-                Title = "اسکن مدرک انجام نشد",
-                Message = "عملیات نا موفق",
-                IsSuccess = false,
-                Status = nameof(OprationStatus.error)
-            };
+                await _dataBase.SaveChangesAsync();
+                return new ResultInfo
+                {
+                    IsSuccess = true,
+                    Message = "اطلاعات ثبت شد",
+                    Title = "عملیات موفق",
+                    Status = nameof(OprationStatus.success)
+                };
+            }
+            catch(Exception ex)
+            {
+                Tools.DeletePicture(IdentifireCardPath);
+                if (ofish.HaveVihicle && !string.IsNullOrEmpty(VehiclepicPath))
+                {
+                    Tools.DeletePicture(VehiclepicPath);
+                }
+
+                return new ResultInfo
+                {
+                    IsSuccess = false,
+                    //Message = "ایجاد مشکل در ثبت اطلاعات",
+                    Message = ex.Message,
+                    Title = "عملیات ناموفق",
+                    Status = nameof(OprationStatus.error)
+                };
+            }
+
         }
+
+
 
         public void Dispose()
         {
@@ -132,7 +176,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                 return new ResultInfo
                 {
                     IsSuccess = true,
-                    Message = ofish.PicPath,
+                    Message = Tools.getPathAsImgsrc( ofish.PicPath),
                     Title = $"تصویر کارت ملی آقا / خانم {ofish.FullName}"
                 };
             }
@@ -162,6 +206,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                    Staff = s.Staff,
                    OfishDateTime = s.OffishTime,
                    ExitDate = s.ExitTime,
+                   VehiclePlate = s.ViheclePlate
 
                }).AsQueryable().OrderByDescending(a => a.OfishDateTime);
 
@@ -176,7 +221,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
             var list = _dataBase.Ofish.Include(a => a.Office)
                 .AsQueryable();
 
-           if(model.FromDate != DateTime.MinValue && model.ToDate != DateTime.MinValue)
+            if (model.FromDate != DateTime.MinValue && model.ToDate != DateTime.MinValue)
             {
                 list = list.Where(s => s.OffishTime.Date >= model.FromDate && s.OffishTime.Date <= model.ToDate);
             }
@@ -188,7 +233,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
             {
                 list = list.Where(s => s.OffishTime.Date >= model.FromDate);
             }
-           
+
 
             if (model.OfficId != 0)
             {
@@ -219,6 +264,8 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                     Staff = s.Staff,
                     OfishDateTime = s.OffishTime,
                     ExitDate = s.ExitTime,
+                    VehiclePlate = s.ViheclePlate
+                   
                 })
                 .AsQueryable().OrderByDescending(s => s.OfishDateTime)
                 .ToPaged(pageId, "لیست تردد ارباب و رجوع", 10);
@@ -235,6 +282,27 @@ namespace RSB_Ofish_System.Repository.Ofish.Services
                 PageCount = dataList.PageCount,
                 TotalRows = dataList.TotalRows
             };
+        }
+
+        public async Task<ResultInfo> ShowVehiclePic(long Id)
+        {
+            var ofish = await _dataBase.Ofish.FindAsync(Id);
+            if (ofish != null)
+            {
+                return new ResultInfo
+                {
+                    IsSuccess = true,
+                    Message = Tools.getPathAsImgsrc(ofish.ViheclePic),
+                    Title = $"تصویر وسیله نقلیه آقا / خانم {ofish.FullName}"
+                };
+            }
+            else
+            {
+                return new ResultInfo
+                {
+                    IsSuccess = false
+                };
+            }
         }
     }
 }

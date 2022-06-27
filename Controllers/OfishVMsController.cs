@@ -33,6 +33,11 @@ namespace RSB_Ofish_System.Controllers
             var result = await _ofishService.getCard(Id);
             return PartialView("_cardView", result);
         }
+        public async Task<IActionResult> showVehicle(int Id)
+        {
+            var result = await _ofishService.ShowVehiclePic(Id);
+            return PartialView("_vehicleView", result);
+        }
         public async Task<IActionResult> Exit(long Id)
         {
             var userId = CommonTools.Tools.GetUserId(User);
@@ -114,20 +119,6 @@ namespace RSB_Ofish_System.Controllers
             if (ModelState.IsValid)
             {
                 ofish.UserId = userId;
-                if (ofish.HaveVihicle)
-                {
-                    if (!plateIsValid(ofish.TowDigit, ofish.ThreeDigit, ofish.StataDigit))
-                    {
-
-                        return Json(new ResultInfo
-                        {
-                            IsSuccess = false,
-                            Message = "لطفا پلاک وسیله نقلیه را به درستی وارد نمائید",
-                            Status = "error",
-                            Title = "خطا"
-                        });
-                    }
-                }
                 var result = await _ofishService.addOfish(ofish, img);
                 return Json(result);
             }
@@ -149,41 +140,6 @@ namespace RSB_Ofish_System.Controllers
             };
             return list;
         }
-        private bool plateIsValid(string towdigit, string threeDigit, string statDigigt)
-        {
-            
-            bool plateIsValid = true;
-            try
-            {
-                plateIsValid = plateIsValid && (!string.IsNullOrEmpty(towdigit) 
-                    && towdigit.Length == 2 
-                    && IsdigitString(towdigit));
-                plateIsValid = plateIsValid && (!string.IsNullOrEmpty(threeDigit) 
-                    && threeDigit.Length == 3
-                    && IsdigitString(threeDigit));
-                plateIsValid = plateIsValid && (!string.IsNullOrEmpty(statDigigt) 
-                    && statDigigt.Length == 2
-                    && IsdigitString(statDigigt));
-                return plateIsValid;
-            }
-            catch
-            {
-                return false;
-            }
-            
-        }
-        private bool IsdigitString(string digitString)
-        {
-            bool isDigit = true;
-            foreach(var chr in digitString) 
-            {
-                if (!char.IsDigit(chr))
-                {
-                    isDigit = false;
-                    break;
-                }
-            }
-            return isDigit;
-        }
+
     }
 }

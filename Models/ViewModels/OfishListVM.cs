@@ -20,7 +20,7 @@ namespace RSB_Ofish_System.Models.ViewModels
             get
             {
 
-                return $"{this.OfishDateTime.ToshamsiDate()} - {this.OfishDateTime.ToShortTimeString()}" ;
+                return $"{this.OfishDateTime.ToshamsiDate()} - {this.OfishDateTime.ToShortTimeString()}";
             }
         }
 
@@ -33,13 +33,24 @@ namespace RSB_Ofish_System.Models.ViewModels
         [Display(Name = "کد ملی")]
         public string NationCode { get; set; }
         public string User { get; set; }
-        public string Pic { get; set; }
-
+        public string Pic
+        {
+            get;
+            set;
+        }
+        public bool HasnotVehicle
+        {
+            get
+            {
+                return string.IsNullOrEmpty(this.VehiclePlate);
+            }
+        }
+        public string VehiclePlate { get; set; }
         public bool IsExited
         {
             get
             {
-                return (!this.ExitDate.HasValue ) ? false : true;
+                return (!this.ExitDate.HasValue) ? false : true;
             }
         }
 
@@ -49,12 +60,10 @@ namespace RSB_Ofish_System.Models.ViewModels
             get
             {
                 return IsExited ? $"{ExitDate.Value.ToshamsiDate()} - { ExitDate.Value.ToShortTimeString()}" : string.Empty;
-                
+
             }
         }
-
     }
-
     public class ListResultVM<T>
     {
         public IEnumerable<T> DataList { get; set; }
@@ -66,3 +75,4 @@ namespace RSB_Ofish_System.Models.ViewModels
 
     }
 }
+

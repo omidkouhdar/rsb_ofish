@@ -18,6 +18,24 @@
 
         });
     }
+    function showVehicle(id) {
+
+        $.ajax({
+            url: '/Ofish/showVehicle/',
+            data: { Id: id },
+            type: 'get',
+            success: function (result) {
+
+                $('#myModalBody').html(result);
+                $('#myModal').modal("show");
+            },
+            error: function (err) {
+
+            }
+
+
+        });
+    }
 </script>
 
 <script>

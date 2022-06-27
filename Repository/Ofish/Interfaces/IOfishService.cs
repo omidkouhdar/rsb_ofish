@@ -11,6 +11,7 @@ namespace RSB_Ofish_System.Repository.Ofish.Interfaces
         Task<ListResultVM<OfishListVM>> Search(SearchVM model , int pageId = 1);
         Task<ResultInfo> addOfish(OfishVM ofish , string img);
         Task<ResultInfo> getCard(long Id);
+        Task<ResultInfo> ShowVehiclePic(long Id);
         Task<ResultInfo> Exit(long Id , string UserId);
     }
 }

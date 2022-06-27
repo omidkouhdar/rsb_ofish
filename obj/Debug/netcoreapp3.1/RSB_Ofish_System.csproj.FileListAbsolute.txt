@@ -193,7 +193,6 @@ D:\ASPNET Core\RSB_Ofish_System\RSB_Ofish_System\obj\Debug\netcoreapp3.1\RSB_Ofi
 D:\ASPNET Core\RSB_Ofish_System\RSB_Ofish_System\obj\Debug\netcoreapp3.1\RSB_Ofish_System.csprojAssemblyReference.cache
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\appsettings.json
-D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\x64\concrt140.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\x64\cvextern.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\x64\msvcp140.dll
@@ -362,7 +361,6 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\runtimes\unix\
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
-D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.csprojAssemblyReference.cache
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.csproj.CoreCompileInputs.cache
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.MvcApplicationPartsAssemblyInfo.cache
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.RazorAssemblyInfo.cache
@@ -385,6 +383,7 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Of
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Ofish\Edit.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Ofish\Index.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Ofish\Search.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Ofish\testView.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_cardView.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ErrorView.cshtml.g.cs
@@ -394,6 +393,7 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Sh
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_oprationJsView.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_pagination.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_vehicleView.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\test\Create.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\test\Delete.cshtml.g.cs
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\test\Details.cshtml.g.cs
@@ -410,4 +410,6 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\staticwebasset
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.pdb
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.genruntimeconfig.cache
-D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\Razor\Views\Ofish\testView.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.csproj.AssemblyReference.cache
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\RSB_Ofish_System.GeneratedMSBuildEditorConfig.editorconfig
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Debug\netcoreapp3.1\scopedcss\bundle\RSB_Ofish_System.styles.css

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.DataProtection;
+﻿using Emgu.CV;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using RSB_Ofish_System.Models.ViewModels;
 using RSB_Ofish_System.Utils;
@@ -9,12 +10,13 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static RSB_Ofish_System.Models.ViewModels.OfishListVM;
 
 namespace CommonTools
 {
     public static class Tools
     {
-        public static string getPlate(string towdigit , string alphabet , string threedigit , string state)
+        public static string getPlate(string towdigit, string alphabet, string threedigit, string state)
         {
             return $"{towdigit}-{alphabet}-{threedigit}-{state}";
         }
@@ -23,7 +25,7 @@ namespace CommonTools
         {
             if (to == DateTime.MinValue && from != DateTime.MinValue)
                 return false;
-            return (from - to ).TotalDays > 0;
+            return (from - to).TotalDays > 0;
 
         }
         public static string GetUserId(System.Security.Claims.ClaimsPrincipal principal)
@@ -120,7 +122,7 @@ namespace CommonTools
             return MonthName;
         }
 
-        public static string savePic(string Base64string)
+        public static string saveIdentifireCardPic(string Base64string)
         {
             if (string.IsNullOrEmpty(Base64string))
                 return string.Empty;
@@ -161,7 +163,8 @@ namespace CommonTools
                 cropedBitmap.Dispose();
 
                 File.WriteAllBytes(pathTpStore, imageData);
-                return Path.Combine("/ofishimg/", getTodayFolder(), picName);
+                //return Path.Combine("/ofishimg/", getTodayFolder(), picName);
+                return Path.Combine(pathTpStore);
             }
             catch
             {
@@ -230,6 +233,103 @@ namespace CommonTools
             if (C > 1 && A == Math.Abs(C - 11))
                 return true;
             return false;
+        }
+        public static string GetVehicleImage(string cameaconnection)
+        {
+
+            using (VideoCapture capture = new VideoCapture(fileName: cameaconnection, VideoCapture.API.Ffmpeg))
+            {
+                if (!capture.IsOpened)
+                {
+                    return string.Empty;
+                }
+                try
+                {
+                    byte[] imageData;
+                    var frame = capture.QueryFrame();
+                    var bitMap = frame.ToBitmap();
+                    using (var ms = new MemoryStream())
+                    {
+                        bitMap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        imageData = ms.ToArray();
+                        string filepath = System.IO.Directory.GetCurrentDirectory();
+                        filepath = Path.Combine(filepath, $"wwwroot\\ofishImg\\{CommonTools.Tools.getTodayFolder()}\\Vehicle");
+                        if (!Directory.Exists(filepath))
+                        {
+                            Directory.CreateDirectory(filepath);
+                        }
+                        string picName = Guid.NewGuid() + ".png";
+                        filepath = Path.Combine(filepath, picName);
+                        File.WriteAllBytes(filepath, imageData);
+                        //return Path.Combine($"/ofishimg/{CommonTools.Tools.getTodayFolder()}/Vehicle/{picName}");
+                        return filepath;
+                    }
+                }
+                catch
+                {
+                    return Path.Combine( string.Empty);
+                }
+            }
+        }
+        public static bool DeletePicture(string picturePath)
+        {
+           
+            if (File.Exists(picturePath))
+            {
+                try
+                {
+                    File.Delete(picturePath);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        public static bool plateIsValid(string towdigit, string threeDigit, string statDigigt)
+        {
+
+            bool plateIsValid = true;
+            try
+            {
+                plateIsValid = plateIsValid && (!string.IsNullOrEmpty(towdigit)
+                    && towdigit.Length == 2
+                    && IsdigitString(towdigit));
+                plateIsValid = plateIsValid && (!string.IsNullOrEmpty(threeDigit)
+                    && threeDigit.Length == 3
+                    && IsdigitString(threeDigit));
+                plateIsValid = plateIsValid && (!string.IsNullOrEmpty(statDigigt)
+                    && statDigigt.Length == 2
+                    && IsdigitString(statDigigt));
+                return plateIsValid;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        private static bool IsdigitString(string digitString)
+        {
+            bool isDigit = true;
+            foreach (var chr in digitString)
+            {
+                if (!char.IsDigit(chr))
+                {
+                    isDigit = false;
+                    break;
+                }
+            }
+            return isDigit;
+        }
+        public static string getPathAsImgsrc(string path)
+        {
+           string  _path =  path.Replace("\\", "/");
+            var index = _path.LastIndexOf("wwwroot");
+            _path = _path.Substring(index).Replace("wwwroot", string.Empty);
+            return _path;
         }
     }
 }

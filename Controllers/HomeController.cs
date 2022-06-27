@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RSB_Ofish_System.Models;
 using RSB_Ofish_System.Repository.Ofish.Interfaces;
+using RSB_Ofish_System.Utils;
 
 namespace RSB_Ofish_System.Controllers
 {
@@ -16,10 +18,12 @@ namespace RSB_Ofish_System.Controllers
     {
         private readonly ILogger<Home> _logger;
         private readonly IOfishService _ofishService;
-        public Home(ILogger<Home> logger , IOfishService ofishService)
+        private readonly IConfiguration _configuration;
+        public Home(ILogger<Home> logger , IOfishService ofishService , IConfiguration configuration)
         {
             _logger = logger;
             _ofishService = ofishService;
+            _configuration = configuration;
         }
         public  IActionResult Index()
         {
@@ -37,6 +41,7 @@ namespace RSB_Ofish_System.Controllers
         {
             return View();
         }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

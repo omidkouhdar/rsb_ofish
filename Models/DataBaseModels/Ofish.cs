@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,21 +24,8 @@ namespace RSB_Ofish_System.Models.DataBaseModels
         public DateTime LastModified { get; set; }
         [MaxLength(14)]    
         public string ViheclePlate { get; set; }
+        public string ViheclePic { get; set; }
         public virtual Office Office { get; set; }
-    }
-    public class Office
-    {
-        public Office()
-        {
-            this.Ofishes = new List<Ofish>();
-            this.Staffs = new List<Staff>();
-        }
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        public virtual ICollection<Ofish> Ofishes { get; set; }
-        public virtual ICollection<Staff> Staffs { get; set; }
-
     }
     public enum Sexual
     {

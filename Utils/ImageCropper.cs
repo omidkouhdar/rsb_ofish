@@ -7,11 +7,22 @@ using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Util;
 using System.Drawing;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace RSB_Ofish_System.Utils
 {
     public class ImageCropper : IDisposable
     {
+        private IConfiguration _configuration;
+        public ImageCropper(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        public ImageCropper()
+        {
+
+        }
         Image<Bgr, Byte> croptedImage;
         public void Dispose()
         {
@@ -130,5 +141,6 @@ namespace RSB_Ofish_System.Utils
 
 
         }
+
     }
 }

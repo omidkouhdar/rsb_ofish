@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kYWpkaq9MmJgpFruuxXHPody8hirnCyzjYXa1Lyw4iQFbH2LqjguqZoW32+dP3EyaNMa0IU60Jsg71mi3c4guA==",
+  "dgSpecHash": "bPuBEi0QEGlwyhyoR8eSKO7LkUL+puh1IIOrq8tdkZJuQ5I7j2MJ0uskAHlXNwAoJIMF9peRD3ZmUhjTyVCtwQ==",
   "success": true,
   "projectFilePath": "D:\\ASPNET Core\\RSB_Ofish_System\\rsb_ofish\\RSB_Ofish_System.csproj",
   "expectedPackageFiles": [
@@ -203,7 +203,9 @@
     "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\kouhdar.RSB\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.25\\microsoft.netcore.app.host.win-x64.3.1.25.nupkg.sha512"
   ],
   "logs": []
 }

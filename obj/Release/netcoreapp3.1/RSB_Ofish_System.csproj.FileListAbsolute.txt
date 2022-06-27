@@ -1,6 +1,5 @@
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\appsettings.Development.json
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\appsettings.json
-D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\Properties\launchSettings.json
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\RSB_Ofish_System.exe
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\RSB_Ofish_System.deps.json
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\RSB_Ofish_System.runtimeconfig.json
@@ -196,7 +195,6 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\staticwebass
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\RSB_Ofish_System.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\RSB_Ofish_System.pdb
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\RSB_Ofish_System.genruntimeconfig.cache
-D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\RSB_Ofish_System.csprojAssemblyReference.cache
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\x64\concrt140.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\x64\cvextern.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\x64\msvcp140.dll
@@ -217,3 +215,7 @@ D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\x86\vcruntim
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\Emgu.CV.Platform.NetCore.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\Emgu.CV.Platform.NetStandard.dll
 D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\Razor\Views\Shared\_ErrorView.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\Razor\Views\Ofish\testView.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\Razor\Views\Shared\_vehicleView.cshtml.g.cs
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\bin\Release\netcoreapp3.1\Properties\launchSettings.json
+D:\ASPNET Core\RSB_Ofish_System\rsb_ofish\obj\Release\netcoreapp3.1\RSB_Ofish_System.csprojAssemblyReference.cache

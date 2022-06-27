@@ -4217,3 +4217,6 @@ td {
     text-align: center;
     font-size: 14px;
 }
+.modal-dialog{
+    width:800px;
+}
